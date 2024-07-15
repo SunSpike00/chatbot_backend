@@ -9,7 +9,7 @@ load_dotenv()
 key = {
     "jwt": {
         "SECRETKEY": os.getenv("SECRETKEY"),
-        "ACCESS_TOKEN_EXPIRE_MINUTES": os.getenv("TOKEN_EXPIRE")
+        "ACCESS_TOKEN_EXPIRE_MINUTES": int(os.getenv("TOKEN_EXPIRE"))
     },
     "bcrypt": {
         "saltRounds": "임시",
