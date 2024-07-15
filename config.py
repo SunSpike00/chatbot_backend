@@ -8,8 +8,8 @@ load_dotenv()
 # 이 코드는 반드시 .env 파일이 있고, 해당 키 값이 있어야 키 안의 값을 가져올 수 있다.
 key = {
     "jwt": {
-        "SECRETKEY": "12345",
-        "ACCESS_TOKEN_EXPIRE_MINUTES": 30
+        "SECRETKEY": os.getenv("SECRETKEY"),
+        "ACCESS_TOKEN_EXPIRE_MINUTES": os.getenv("TOKEN_EXPIRE")
     },
     "bcrypt": {
         "saltRounds": "임시",
