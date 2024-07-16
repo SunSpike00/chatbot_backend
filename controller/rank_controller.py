@@ -7,5 +7,5 @@ class RankController:
     def getRankList(self):
         return self.rank.getRankList()
 
-    def getUserTopPresent(self, username):
-        return self.rank.topPresent(username)
+    def getUserTopPresent(self, email):
+        return self.rank.topPresent(email)

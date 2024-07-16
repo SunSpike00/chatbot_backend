@@ -14,5 +14,5 @@ async def ranking(rank_controller: RankController = Depends(get_Rank_controller)
     return rank_controller.getRankList()
 
 @router.get("/percentages")
-async def employment(username: str, rank_controller: RankController = Depends(get_Rank_controller)):
-    return rank_controller.getUserTopPresent(username)
+async def employment(email: str, rank_controller: RankController = Depends(get_Rank_controller)):
+    return rank_controller.getUserTopPresent(email)

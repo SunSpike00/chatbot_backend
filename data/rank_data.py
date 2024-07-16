@@ -18,7 +18,8 @@ class Rank(MongoDB):
         pipeline = [
             {
                 "$group": {
-                    "_id": "$username",
+                    "_id": "$email",
+                    "username": { "$first": "$username" },
                     "max_score": { "$max": "$result.score" },
                     "createdAt": { "$first": "$createdAt" },
                 }
@@ -26,7 +27,8 @@ class Rank(MongoDB):
             {
                 "$project": {
                     "_id": 0,
-                    "username": "$_id",
+                    "email": "$_id",
+                    "username": 1,
                     "max_score": 1,
                     "createdAt": 1,
                 }
@@ -56,17 +58,19 @@ class Rank(MongoDB):
     def getRankAll(self):
         return self.getRankList()
     
-    def topPresent(self, username):
+    def topPresent(self, email):
         all_max_scores = self.getRankList()
 
         # 특정 사용자의 랭크를 가져옴
-        user_rank_doc = next((doc for doc in all_max_scores if doc["username"] == username), None)
+        user_rank_doc = next((doc for doc in all_max_scores if doc["email"] == email), None)
         if not user_rank_doc:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"{username}의 랭크가 등록되어있지 않습니다.")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"랭크가 등록되어있지 않습니다.")
 
         user_rank = user_rank_doc["rank"]
+        username = user_rank_doc["username"]
         total_users = len(all_max_scores)
 
         # 상위 백분위 계산
+        
         top_percentile = (user_rank / total_users) * 100
-        return {"ranking": f"{top_percentile:.2f}"}
+        return {"username": username, "ranking": f"{top_percentile:.2f}"}
