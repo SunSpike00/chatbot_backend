@@ -49,7 +49,7 @@ class chatLog(MongoDB):
             documents = list(self.collection.find(
                 {'email': email},
                 {'_id': 1, 'title': 1, 'result': 1, 'createdAt': 1}
-            ).sort('createdAt', -1))  # 최근 순으로 정렬
+            ).sort('_id', -1))  # 최근 순으로 정렬
 
             result_docs = []
             for doc in documents:
@@ -71,7 +71,7 @@ class chatLog(MongoDB):
             documents = list(self.collection.find(
                 {'email': email},
                 {'_id': 0, 'title': 1, 'result': 1, 'createdAt': 1}
-            ).sort('createdAt', -1).limit(2))
+            ).sort('_id', -1).limit(2))
             
             for doc in documents:
                 if 'result' in doc:
