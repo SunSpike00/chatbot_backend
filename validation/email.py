@@ -21,7 +21,7 @@ class Email:
         self.user_data = UserData()
 
     def generate_code(self):
-        return ''.join(random.choices(string.ascii_letters + string.digits, k=6))
+        return ''.join(random.choices(string.digits, k=6))
     
     async def send_code(self, request: Request, recipient: str = Form(...)):
         session = request.session
