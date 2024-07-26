@@ -29,5 +29,5 @@ async def getSummaryList(email: str, chat: chatController = Depends(get_chat_con
 
 # AI 모의 면접 결과 ObejctId 가져오는 API - 가장 최근 2개 그리고 그걸로 최근 점수 + 면접 기록 2개로 처리하기!
 @router.get("/summaryRecent/{email}", response_model=List[Dict])
-async def getSummaryList(email: str, chat: chatController = Depends(get_chat_controller)) -> Dict:
+async def getSummaryRecent(email: str, chat: chatController = Depends(get_chat_controller)) -> Dict:
     return chat.summarygetRecent(email)
